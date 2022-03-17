@@ -1,4 +1,4 @@
-#tutorial from cp
+#tutorial dijkstra from cp
 
 def dijkstra(nodes, edges, source_index=0):
     """
@@ -10,19 +10,23 @@ def dijkstra(nodes, edges, source_index=0):
     """
 
 def dijkstra(nodes, edges, source_index=0):
-    path_lengths = {v: float('inf') for v in nodes}
+
+    path_lengths = {v: float('inf') for v in nodes} #v times | v = number of nodes
     path_lengths[source_index] = 0
+
     paths = {v: [] for v in nodes}
     paths[source_index] = [source_index]
-    adjacent_nodes = {v: {} for v in nodes}
+
+    adjacent_nodes = {v: {} for v in nodes} #to provide the dict as an input
     for (u, v), w_uv in edges.items():
         adjacent_nodes[u][v] = w_uv
 
     temporary_nodes = [v for v in nodes]
-    while len(temporary_nodes) > 0:
+    while len(temporary_nodes) > 0: #v times to reduce the loop
         upper_bounds = {v: path_lengths[v] for v in temporary_nodes}
         u = min(upper_bounds, key=upper_bounds.get)
         temporary_nodes.remove(u)
+
         for v, w_uv in adjacent_nodes[u].items():
             if path_lengths[u] + w_uv < path_lengths[v] and v in temporary_nodes:
                 path_lengths[v] = path_lengths[u] + w_uv
