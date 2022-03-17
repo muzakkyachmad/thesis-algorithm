@@ -16,7 +16,7 @@ wwtp_x2 = 715379
 wwtp_y2 = 3512958
 
 distance_of_wwtp = math.sqrt(((wwtp_x1 - wwtp_x2) ** 2) + ((wwtp_y1 - wwtp_y2) ** 2))
-print(distance_of_wwtp)
+
 
 #2 calculate the slope between the points
 
