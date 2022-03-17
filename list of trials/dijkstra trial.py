@@ -14,17 +14,17 @@ def dijsktra(graph,src,dest):
     node_data[src]['cost'] = 0
     visited = []
     temp = src
-    for j in range(6):
+    for i in range(6):
         if temp not in visited: # TODO: Reassign source
             visited.append(temp)
             min_heap = []
-            for m in graph[temp]:
-                if m not in visited:
-                    cost = node_data[temp]['cost'] + graph[temp][m]
-                    if cost < node_data[m]['cost']:
-                        node_data[m]['cost'] = cost
-                        node_data[m]['pred'] = node_data[temp]['pred'] + list(temp)
-                    heappush(min_heap,(node_data[m]['cost'],m))
+            for j in graph[temp]:
+                if j not in visited:
+                    cost = node_data[temp]['cost'] + graph[temp][j]
+                    if cost < node_data[j]['cost']:
+                        node_data[j]['cost'] = cost
+                        node_data[j]['pred'] = node_data[temp]['pred'] + list(temp)
+                    heappush(min_heap,(node_data[j]['cost'],j))
         heapify(min_heap)
         temp = min_heap[0][6]
     print("Shortest Distance: " + str(node_data[dest]['cost']))
