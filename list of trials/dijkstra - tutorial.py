@@ -15,7 +15,7 @@ def dijsktra(graph,src,dest):
     node_data[src]['cost'] = 0
     visited = []
     temp = src
-    for i in range(5): #5 is taken by considering the total amount of vertexes-1 (6-1)
+    for i in range(5): #5 is taken by considering the total amount of vertices-1 (6-1)
         if temp not in visited: # TODO: Reassign source
             visited.append(temp)
             min_heap = []
@@ -42,6 +42,6 @@ if __name__ == "__main__":
         'F':{'D':22,'E':1}
     }
 
-    source = 'F'
-    destination = 'B'
+    source = 'A'
+    destination = 'D'
     dijsktra(graph,source,destination)

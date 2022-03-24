@@ -10,10 +10,13 @@ def dijkstra(nodes, edges, source_index=0):
     """
 
 def dijkstra(nodes, edges, source_index=0):
+
     path_lengths = {v: float('inf') for v in nodes}
     path_lengths[source_index] = 0
+
     paths = {v: [] for v in nodes}
     paths[source_index] = [source_index]
+
     adjacent_nodes = {v: {} for v in nodes}
     for (u, v), w_uv in edges.items():
         adjacent_nodes[u][v] = w_uv
@@ -29,13 +32,13 @@ def dijkstra(nodes, edges, source_index=0):
                 paths[v] = paths[u] + [v]
     return path_lengths, paths
 
-nodes = [1, 2, 3, 4, 5, 6, 7]
-edges = {(1, 2): 4776, (1, 3): 5597, (1, 6): 2491, (1, 7): 4480,
-         (2, 3): 8506, (2, 6): 4551, (2, 7): 6945,
-         (3, 6): 5584, (3,7): 6397,
-         (4, 5): 2909, (4,6): 5201,
-         (5, 6): 6324,
-         (6, 7): 6974}
+nodes = [0, 1, 2, 3, 4, 5, 6]
+edges = {(0, 1): 4776, (0, 2): 5597, (0, 5): 2491, (0, 6): 4480,
+         (1, 2): 8506, (1, 5): 4551, (1, 6): 6945,
+         (2, 5): 5584, (2, 6): 6397,
+         (3, 4): 2909, (3, 5): 5201,
+         (4, 5): 6324,
+         (5, 6): 6974}
 
 shortest_path_lengths, shortest_paths = dijkstra(nodes, edges)
 print(shortest_path_lengths)

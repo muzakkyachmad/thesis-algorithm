@@ -1,10 +1,33 @@
 
-#raw algorithm for thesis 14 feb - 10 mar 2022 based on the excel calculations and using dijkstra algorithm
+#compilation of data that should be inputted on the algorithm
 
-(
+
+#WWTP data
+
+wwtp_7_coordinates = (
     {"wwtp": "A", "X": 715551, "Y": 3515856},
     {"wwtp": "B", "X": 715379, "Y": 3512958},
 )
+
+graph_7_wwtp_calculate = {
+        'A':{'B':2903,'C':3073,'F':1866,'G':2198},
+        'B':{'A':2903,'C':5894,'F':2171,'G':5079},
+        'C':{'A':3073,'B':5894,'F':4162,'G':1604},
+        'D':{'E':2247,'F':3196},
+        'E':{'D':2247,'F':3815},
+        'F':{'A':1866,'B':2171,'C':4162,'D':3196,'E':3815,'G':3851},
+        'G':{'A':2198,'B':5079,'C':1604,'G':3851}}
+
+graph_7_wwtp_qgis = {
+        'A':{'B':4776,'C':5597,'F':2491,'G':4480},
+        'B':{'A':4776,'C':8506,'F':4551,'G':6945},
+        'C':{'A':5597,'B':8506,'F':5854,'G':6397},
+        'D':{'E':2909,'F':5201},
+        'E':{'D':2909,'F':6324},
+        'F':{'A':2491,'B':4551,'C':5854,'D':5201,'E':6324,'G':6974},
+        'G':{'A':4480,'B':6945,'C':6397,'F':6974}
+
+
 
 #1 calculate the straight distance between two wwtps
 import math
