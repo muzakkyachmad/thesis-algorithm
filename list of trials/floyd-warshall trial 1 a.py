@@ -1,3 +1,4 @@
+
 #algorithm concept or framework A using floyd warshall based on c.p
 
 def floyd_warshall(nodes, edges):
@@ -23,7 +24,7 @@ def floyd_warshall(nodes, edges):
 
     return d #shortest path lengths
 
-#input data of the WWTP - WWTP code is represented in number and started from 0 as WWTP A
+#input data of the WWTP - WWTP code is represented in number and started from 0 as WWTP. data = 7 wwtp from python
 
 nodes = [0, 1, 2, 3, 4, 5, 6]
 edges = {(0, 1): 4776, (0, 2): 5597, (0, 5): 2491, (0, 6): 4480,
@@ -38,8 +39,3 @@ shortest_path_lengths = floyd_warshall(nodes, edges)
 
 print(shortest_path_lengths) #this command will print the length from starting point to every point
 
-for(int(i=1), i<v ++j):
-    {
-        for(int j=0;j<v: ++j):
-            cout<<i<<" to "<<j<<" distance is"
-    }

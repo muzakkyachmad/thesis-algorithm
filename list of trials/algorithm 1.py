@@ -1,37 +1,62 @@
 
-#decision making algorithm of pumping and using assumption wwtp --> a = 0, b = 1, c = 2. below is the inputted data
+#data of WWTP a=0 and b=1 and simulating route ba
 
-wwtp_data = [
-    {"name": "A", "X": 715551, "Y": 3515856, "elevation": 495, "flow rate (m3/s)": 0.0134, "population (lives)": 21495},
-    {"name": "B", "X": 715379, "Y": 3512958, "elevation": 534, "flow rate (m3/s)": 0.0130, "population (lives)": 26393},
-    {"name": "C", "X": 716727, "Y": 3518696, "elevation": 382, "flow rate (m3/s)": 0.0001, "population (lives)": 94},
-]
+wwtp_list = [0, 1]
+h_wwtp_a = 495
+h_wwtp_b = 534
+h_wwtp_c = 382
+hmax_segment_ab = 639
+hmax_segment_ac = 646
+hmax_segment_bc = 639
+distance_a_to_hmax_of_segment_ab = 3051.71
+distance_a_to_hmax_of_segment_ac = 1071.94
+manning_coeff = 0.013
+ks = 0.0015
+viscosity = 0.000001
+gravity_coeff = 9.81
+efficincy_pump = 0.8
+water_density = 1000
 
-hmax_segment_elevation = {
-    (0, 1): 639,
-    (1, 0): 639,
-    (0, 2): 646,
-    (2, 0): 646,
-    (1, 2): 639,
-    (2, 1): 639,
-}
+#functions to calculate the elevation difference between selected wwtp
+def elev_diff_wwtp():
+    data_ab = {
+        "h_wwtp_a" : 495,
+        "h_wwtp_b" : 534
+    }
 
-hmax_segment_length_to_hmax = {
-    (0, 1): 3051.71,
-    (1, 0): 2014.57,
-    (0, 2): 1071.94,
-    (2, 0): 4490.03,
-    (1, 2): 1865.13,
-    (1, 2): 6968.66,
-}
+    elev_diff_wwtp = data_ab["h_wwtp_b"] - data_ab["h_wwtp_a"]
+    print(elev_diff_wwtp)
 
-#checking and calculating the slope from starting point to the highest point of the segment
+elev_diff_wwtp():
+if (elev_diff_wwtp > 0):
+    return elev_diff_hmax
+else:
+    return diameter_pipe1_no_pump
 
-def calculate_elevation_difference_between_wwtp(wwtp_data):
-    elevdiff = wwtp_data[elevation[0]] - wwtp_data[elevation[2]]
 
-calculate_elevation_difference_between_wwtp()
 
+#function to calculate elevation difference between hmax and wwtpa
+def elev_diff_hmax():
+    elevation_data = {
+        "hmax_segment_ab": 639,
+        "h_wwtp_a": 495,
+        "h_wwtp_b": 534,
+    }
+    elev_diff_hmax = elevation_data["hmax_segment_ab"] - elevation_data["h_wwtp_a"]
+    print(elev_diff_hmax)
+
+elev_diff_hmax()
+
+#function to calculate distance of pipe without pumping
+def diameter_pipe1_no_pump():
+    data3 = {"flowrate_ab": 0.0134,
+        "slope_to_hmax": 0.002,
+        "manning_coef": 0.013,
+    }
+    diameter_pipe1_no_pump = (((data3["flowrate_ab"] * data3 ["manning_coef"]) / (0.3117 * (data3["slope_to_hmax"] ** 0.5))) ** 0.375)
+    print(diameter_pipe1_no_pump)
+
+diameter_pipe1_no_pump()
 
 
 

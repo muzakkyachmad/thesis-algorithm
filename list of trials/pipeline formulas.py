@@ -1,4 +1,30 @@
 
+
+
+wwtp_data = [
+    {"name": "A", "X": 715551, "Y": 3515856, "elevation": 495, "flow rate": 0.0134, "population": 21495},
+    {"name": "B", "X": 715379, "Y": 3512958, "elevation": 534, "flow rate": 0.0130, "population": 26393},
+    {"name": "C", "X": 716727, "Y": 3518696, "elevation": 382, "flow rate": 0.0001, "population": 94},
+]
+
+hmax_segment_elevation = {
+    (0, 1): 639,
+    (1, 0): 639,
+    (0, 2): 646,
+    (2, 0): 646,
+    (1, 2): 639,
+    (2, 1): 639,
+}
+
+hmax_segment_length_to_hmax = {
+    (0, 1): 3051.71,
+    (1, 0): 2014.57,
+    (0, 2): 1071.94,
+    (2, 0): 4490.03,
+    (1, 2): 1865.13,
+    (1, 2): 6968.66,
+}
+
 #compilation of data that should be inputted on the algorithm
 
 
@@ -108,3 +134,29 @@ print(pump_power)
 
 pipe1_cost = 460 * distance_of_wwtp
 print(pipe1_cost)
+
+
+
+
+#checking and calculating the slope from starting point to the highest point of the segment
+
+h_start = 495
+h_end = 534
+hmax_segment = 639
+
+def calculate_elevation_difference_between_wwtp():
+    elev_diff = h_end - h_start
+    if (elev_diff > 0):
+        return
+    else:
+        return calculate_the_distance_without_pumping
+
+def calculate_the_pump_route():
+    hmax_segment_1 = hmax_segment - h_start
+    if (hmax_segment_1 > 0):
+        return pumping
+    else:
+        return calculate_the_distance_without_pumping
+
+def calculate_pumping_distance():
+    segment_wwtp_start_to_hmax =  3051
