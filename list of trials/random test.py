@@ -1,41 +1,27 @@
 
+import math
 
-def costsPrivateSewers(buildings, buildPoints, pipeDiameterPrivateSewer, averageTrenchDepthPrivateSewer, lifeSewers,
-                       interestRate, operationCosts, fc_SewerCost):
-    '''
-    This function calculates the costs of the private sewers. The private sewers are the closest distance to the street network,
-    If the street is too far, the whole distance to the building is used.
+pi = 3.14
 
-    Input:
-    buildings                          -    Buildings
-    buildPoints                        -    Coordinates of Buildings
-    pipeDiameterPrivateSewer           -    Pipe Diameter
-    averageTrenchDepthPrivateSewer     -    Average Trench depth
-    lifeSewers                         -    Lifespan of sewers
-    interestRate                       -    Interest rate
-    operationCosts                     -    Opex
-    fc_SewerCost                       -    cost factor sewers
+print(round(pi)) #round to make it has no decimal
+print(math.ceil(pi)) #to round up the value to up
+print(math.floor(pi)) #to round down the value
+print(abs(pi)) #to print the number become positive
+print(pow(pi,2)) #to power the variable and 2 is the number of power
+print(math.sqrt(pi)) #to root the variable
 
-    Output:
-    totCostPrivateSewer                -    Total replacement value of private sewers
-    '''
-    costsP_Sewer = 0
-    for node in buildings:
-        pt_to1_X, pt_to1_Y, gebListe = node[0], node[1], node[2]
 
-        for house in gebListe:
-            for geb in buildPoints:
-                if geb[0] == house:
-                    _, pt_from1_X, pt_from1_Y, _ = geb[0], geb[1], geb[2], geb[4]
-                    break
+def calculator(num1, num2):
+    num1 = [1, 2, 3]
+    num2 = [0, 3, 4]
+    calculate = num1[1] + num2[0]
+    return calculate
 
-            p0, p1 = (pt_from1_X, pt_from1_Y), (pt_to1_X, pt_to1_Y)
-            distance = math.hypot(p0[0] - p1[0], p0[1] - p1[1])
+print(calculator(2,0))
 
-            privateSewercostsPerYear = calculatePipeCosts(pipeDiameterPrivateSewer, distance,
-                                                          averageTrenchDepthPrivateSewer, lifeSewers, interestRate,
-                                                          operationCosts, fc_SewerCost)
-            costsP_Sewer += privateSewercostsPerYear
 
-    totCostPrivateSewer = costsP_Sewer * lifeSewers
-    return totCostPrivateSewer
+
+
+
+
+
