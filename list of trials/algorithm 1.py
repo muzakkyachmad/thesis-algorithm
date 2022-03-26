@@ -9,7 +9,6 @@ wwtp_sd6 = [383, 0.057, 45861, 100000]
 wwtp_sd7 = [382, 0.035, 23281, 60000]
 
 
-
 #functions to calculate the elevation difference between selected wwtp
 def calc_elev_diff_wwtpend_wwtpstart():
     elev_diff_wwtpend_wwtpstart = wwtp_sd1[0] - wwtp_sd2[0]
@@ -71,6 +70,17 @@ distance_segment = [1590, 3736, 3281, 8006]
 def calc_manhole_segment_without_pumping():
     manhole_segment_without_pumping = distance_segment[0] / 50
     return manhole_segment_without_pumping
+
+#function to calculate the construction cost of pipe segment without pumping
+#data of price of each diameter in ILS [50, 80, 100, 125, 150, 200, 250]
+
+pipe_price_per_diam = [227.1, 259.7, 291.1, 326.6, 361.6, 459.7, 529.2]
+
+def calc_construct_cost_pipe_segment_without_pumping():
+    construct_cost_pipe_segment_without_pumping = pipe_price_per_diam[5] * calc_diameter_segment_without_pumping()
+    return construct_cost_pipe_segment_without_pumping
+
+
 
 
 

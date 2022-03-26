@@ -43,5 +43,5 @@ if __name__ == "__main__":
     }
 
     source = 'A'
-    destination = 'E'
+    destination = 'F'
     dijsktra(graph,source,destination)
