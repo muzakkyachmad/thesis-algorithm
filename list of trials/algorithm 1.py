@@ -1,15 +1,39 @@
+#data of the wwtp - structure wwtpn = [elevation, flowrate(m3/s), population, and base cost] based on sd wwtp data
 
-#data of WWTP a=0 and b=1 and simulating route ba
+wwtp_sd1 = [497, 0.005, 4066, 10000]
+wwtp_sd2 = [467, 0.006, 4156, 15000]
+wwtp_sd3 = [460, 0.002, 1129, 5000]
+wwtp_sd4 = [330, 0.002, 1716, 5000]
+wwtp_sd5 = [377, 0.012, 7036, 20000]
+wwtp_sd6 = [383, 0.057, 45861, 100000]
+wwtp_sd7 = [382, 0.035, 23281, 60000]
 
-wwtp_list = [0, 1]
-h_wwtp_a = 495
-h_wwtp_b = 534
-h_wwtp_c = 382
-hmax_segment_ab = 639
-hmax_segment_ac = 646
-hmax_segment_bc = 639
-distance_a_to_hmax_of_segment_ab = 3051.71
-distance_a_to_hmax_of_segment_ac = 1071.94
+
+
+#functions to calculate the elevation difference between selected wwtp
+def calc_elev_diff_wwtpend_wwtpstart():
+    elev_diff_wwtpend_wwtpstart = wwtp_sd1[0] - wwtp_sd2[0]
+    if elev_diff_wwtpend_wwtpstart > 0:
+        calc_elev_diff_hmax_start()
+    else:
+        calc_slope_to_hmax()
+return elef_diff_wwtpend_wwtpstart
+
+
+hmax_segment_sd = [497, 537, 600, 600, 600, 530, 530, 600, 524, 557, 390, 520, 530, 530, 572, 575]
+#function to calculate the elevation difference with pumping
+def calc_elev_diff_hmax_hstart():
+    elev_diff_hmax_hstart = hmax_segment_sd[0] - wwtp_sd1[0]
+    return elev_diff_hmax_hstart
+
+
+#functions to calculate the diameter on a segment without pumping
+def calc_slope_to_hmax():
+    slope_to_hmax = (2.33 * wwtp_sd1[1] * (0.134 ** (-0.46)))
+    return slope_to_hmax
+
+#hydraulic coefficients
+
 manning_coeff = 0.013
 ks = 0.0015
 viscosity = 0.000001
@@ -17,93 +41,43 @@ gravity_coeff = 9.81
 efficincy_pump = 0.8
 water_density = 1000
 
-#functions to calculate the elevation difference between selected wwtp
-def elev_diff_wwtp(etp1, etp2):
-    data_ab = {
-        "h_wwtp_a" : 495,
-        "h_wwtp_b" : 534
-    }
-if elev_diff_wwtp(495, 534) > 0:
-    #to do if it is positive
-else:
-    #to do if it is negative
+#functions to calculate the diameter if the segment is not using pumping
+def calc_diameter_segment_without_pumping():
+    diameter_segment_without_pumping = (((wwtp_sd1[1] * manning_coeff) / (0.3117 * (calc_slope_to_hmax() ** 0.5))) ** 0.375)
+    return diameter_segment_without_pumping
 
-    elev_diff_wwtp = data_ab["h_wwtp_b"] - data_ab["h_wwtp_a"]
-    print(f"the difference is {elev_diff_wwtp} meter")
-
-elev_diff_wwtp()
-
-#function to calculate elevation difference between hmax and wwtpa
-def elev_diff_hmax():
-    hmax_data = {
-        "hmax_segment_ab": 639,
-        "h_wwtp_a": 495
-    }
-    elev_diff_hmax = hmax_data["hmax_segment_ab"] - hmax_data["h_wwtp_a"]
-    print(elev_diff_hmax)
-
-elev_diff_hmax()
+#functions to velocity of the pipe if the segment is not using pumping
+def calc_velocity_segment_without_pumping():
+    velocity_segment_without_pummping = ((wwtp_sd1[1] * 4) / (3.14 * (calc_diameter_segment_without_pumping() ** 2)))
+    return velocity_segment_without_pummping
 
 
-#2 calculate the slope between the points
+#functions to calculate reynold nunmber if the segment is not using pumping
+def calc_reynold_segment_without_pumping():
+    reynold_segment_without_pumping = ((calc_velocity_segment_without_pumping() * calc_diameter_segment_without_pumping()) / viscosity)
+    return reynold_segment_without_pumping
 
-h1 = 489
-h2 = 524
-hmax = 639
-
-slope_to_hmax = (2.33 * 0.0001 * (0.134 ** (-0.46)))
-print(slope_to_hmax)
-
-#3 calculate the diameter pipe (d_pipe1)
-
-n = 0.013 #manning coefficient - assumed
-slope = slope_to_hmax
-
-diameter_pipe1 = ((( n * 0.0134)/(0.3117 * (slope ** 0.5))) ** 0.375)
-print(diameter_pipe1)
+#functions to calculate ks/D value if the segment is not using pumping
+def calc_ksD_segment_without_pumping():
+    ksD_segment_without_pumping = ks / calc_diameter_segment_without_pumping()
+    return ksD_segment_without_pumping
 
 
-#4 calculate the velocity in the pipe (v)
 
-velocity = ((0.134 * 4) / (3.14 * (diameter_pipe1 ** 2)))
-print(velocity)
+#function to calculate the manhole in the pipe by assuming every 50 m should be 1 manhole
 
+distance_segment = [1590, 3736, 3281, 8006]
 
-#5 calculate the reynolds number (re)
-
-viscosity = 10 ** -6
-
-Re = ((velocity * diameter_pipe1) / viscosity)
-print(Re)
-
-#6 calculate the ks/d value (ks_d)
-
-ks_d = 0.0015 / diameter_pipe1
-print(ks_d)
-
-#7 calculate the head friction (hf)
-
-friction_loss = 0.05
-gravity_coef = 9.81
-
-head_friction = (friction_loss * distance_of_wwtp) / (diameter_pipe1 * 2 * gravity_coef)
-print(head_friction)
+def calc_manhole_segment_without_pumping():
+    manhole_segment_without_pumping = distance_segment[0] / 50
+    return manhole_segment_without_pumping
 
 
-#8 calculate the total of the headloss
 
-headloss = head_friction + slope_to_hmax
-print(headloss)
 
-#10 calculate the power of the pump
 
-water_density = 1000
-pump_efficiency = 0.8 #assumed 80% efficient
 
-pump_power = (((water_density * gravity_coef * headloss * 0.134) / pump_efficiency) / 1000)
-print(pump_power)
+#functions to calculate the diameter on a segment without pumping
 
-#11 calculate the pipe1 construction cost (ILS)
 
-pipe1_cost = 460 * distance_of_wwtp
-print(pipe1_cost)
+
