@@ -12,13 +12,13 @@ def dijsktra(graph,src,dest):
     'D':{'cost':inf,'pred':[]},
     'E':{'cost':inf,'pred':[]},
     'F':{'cost':inf,'pred':[]},
-    'G':{'cost':inf,'pred':[]}
+    'G':{'cost':inf,'pred':[]},
     }
     node_data[src]['cost'] = 0
     visited = []
     temp = src
     for i in range(6):
-        if temp not in visited:
+        if temp not in visited:  # TODO: Reassign source
             visited.append(temp)
             min_heap = []
             for j in graph[temp]:
@@ -27,8 +27,8 @@ def dijsktra(graph,src,dest):
                     if cost < node_data[j]['cost']:
                         node_data[j]['cost'] = cost
                         node_data[j]['pred'] = node_data[temp]['pred'] + list(temp)
-                    heappush(min_heap,(node_data[j]['cost'],j))
-        heapify(min_heap)0
+                    heappush(min_heap, (node_data[j]['cost'], j))
+        heapify(min_heap)
         temp = min_heap[0][1]
     print("Shortest Distance: " + str(node_data[dest]['cost']))
     print("Shortest Path: " + str(node_data[dest]['pred'] + list(dest)))
@@ -46,5 +46,5 @@ if __name__ == "__main__":
     }
 
     source = 'A'
-    destination = 'D'
+    destination = 'G'
     dijsktra(graph,source,destination)
