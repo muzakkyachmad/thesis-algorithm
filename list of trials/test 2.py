@@ -13,8 +13,8 @@ wwtp3 = [35.2, 20.2, 12, 4, 7.5]
 baseline_cost = wwtp1[4] + wwtp2[4] + wwtp3[4]
 
 
-def cost_connecting_2(tp1, tp2):
-    dist = calc_dist(tp1[0], tp1[1], tp2[0], tp[1])
+def cost_connecting_2(wwtp1, wwtp2):
+    dist = calc_dist(wwtp1[0], wwtp1[1], wwtp2[0], wwtp[1])
     diam = calc_diameter(manning, slope, ...)
     c = cost_pipe(dist,diam, ...)
     return c

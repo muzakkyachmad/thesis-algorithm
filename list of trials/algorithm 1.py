@@ -9,28 +9,19 @@ wwtp_sd6 = [383, 0.057, 45861, 100000]
 wwtp_sd7 = [382, 0.035, 23281, 60000]
 
 
-
+#route = ba
 #1. PART OF PUMPING ALGORITHM
 #functions to calculate the elevation difference between selected wwtp
 def calc_elev_diff_wwtpend_wwtpstart(a, b):
     """ function to calculate the elevation differences between selected wwtp
     from the floyd-warshall algorithm running result"""
-    wwtp_sd_elev = [497, 467, 460, 330, 377, 383, 382]
-    elev_diff_wwtpend_wwtpstart = b - a
-    for (a,b) in wwtp_sd_elev:
-        random(wwtp_sd_elev)
 
+    elev_diff_wwtpend_wwtpstart = b - a
     print(elev_diff_wwtpend_wwtpstart)
 
+wwtp_sd_elev = [497, 467, 460, 330, 377, 383, 382] #wwtpsd1,2,3,4,5,6,7
 
-
-    if 'elev_diff_wwtpend_wwtpstart' > 0:
-        calc_elev_diff_hstart_hmax()
-    else:
-        calc_slope_to_hmax()
-    return elev_diff_wwtpend_wwtpstart
-
-
+calc_elev_diff_wwtpend_wwtpstart(wwtp_sd_elev[1], wwtp_sd_elev[2])
 
 
 #A. PART OF PUMPING

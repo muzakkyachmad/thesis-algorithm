@@ -37,11 +37,11 @@ def dijsktra(graph,src,dest):
 if __name__ == "__main__":
     graph = {
         'A':{'B':4773,'C':5563,'D':7387},
-        'B':{'A':4773,'C':8515,'D':8715},
+        'B':{'A':4773,'D':8715},
         'C':{'A':5563,'B':8515,'D':11008},
         'D':{'A':7387,'B':8715,'C':11008},
     }
 
-    source = 'D'
-    destination = 'D'
+    source = 'B'
+    destination = 'C'
     dijsktra(graph,source,destination)
