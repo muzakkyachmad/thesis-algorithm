@@ -1,27 +1,30 @@
 
-import math
-
-pi = 3.14
-
-print(round(pi)) #round to make it has no decimal
-print(math.ceil(pi)) #to round up the value to up
-print(math.floor(pi)) #to round down the value
-print(abs(pi)) #to print the number become positive
-print(pow(pi,2)) #to power the variable and 2 is the number of power
-print(math.sqrt(pi)) #to root the variable
-
-
-def calculator(num1, num2):
-    num1 = [1, 2, 3]
-    num2 = [0, 3, 4]
-    calculate = num1[1] + num2[0]
-    return calculate
-
-print(calculator(2,0))
 
 
 
+# 1. PART OF PUMPING ALGORITHM
+# functions to calculate the elevation difference between selected wwtp
+def calc_elev_diff_wwtpend_wwtpstart(a, b):
+    """calculate the elevation difference between wwtp end and wwtp start"""
+
+    elev_diff_wwtpend_wwtpstart = b - a
+    print(elev_diff_wwtpend_wwtpstart)
+    return elev_diff_wwtpend_wwtpstart
+
+wwtp_sd_elev = [497, 467, 460, 330, 377, 383, 382]
+
+calc_elev_diff_wwtpend_wwtpstart(wwtp_sd_elev[1],wwtp_sd_elev[2])
+
+if calc_elev_diff_wwtpend_wwtpstart(wwtp_sd_elev[1],wwtp_sd_elev[2]) > 0:
+    sa()
+else:
+    ya()
+print(f"pumping")
 
 
+def sa():
+    return
 
-
+def ya():
+    print(f"no pump")
+    return
