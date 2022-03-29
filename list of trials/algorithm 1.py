@@ -9,34 +9,44 @@ wwtp_sd6 = [383, 0.057, 45861, 100000]
 wwtp_sd7 = [382, 0.035, 23281, 60000]
 
 
-#route = ba
+
+hmax_segment_sd = [497, 537, 600, 600, 600, 530, 530, 600, 524, 557, 390, 520, 530, 530, 572, 575]
+
+
+#example route = sd1-sd2
 #1. PART OF PUMPING ALGORITHM
 #functions to calculate the elevation difference between selected wwtp
-def calc_elev_diff_wwtpend_wwtpstart(a, b):
-    """ function to calculate the elevation differences between selected wwtp
-    from the floyd-warshall algorithm running result"""
+def calc_elev_diff_wwtpend_wwtpstart(hend, hstart):
 
-    elev_diff_wwtpend_wwtpstart = b - a
+wwtp_sd_elev = [497, 467, 460, 330, 377, 383, 382]  # wwtpsd1,2,3,4,5,6,7
+
+    elev_diff_wwtpend_wwtpstart = hend - hstart
     print(elev_diff_wwtpend_wwtpstart)
-
-wwtp_sd_elev = [497, 467, 460, 330, 377, 383, 382] #wwtpsd1,2,3,4,5,6,7
+    if elev_diff_wwtpend_wwtpstart > 0:
+        calc_elev_diff_hstart_hmax()
+    else:
+        calc_elev_diff_hmax_hend()
 
 calc_elev_diff_wwtpend_wwtpstart(wwtp_sd_elev[1], wwtp_sd_elev[2])
 
 
 #A. PART OF PUMPING
 
-hmax_segment_sd = [497, 537, 600, 600, 600, 530, 530, 600, 524, 557, 390, 520, 530, 530, 572, 575]
+
 
 #A1. calculating the elevation difference of starting wwtp and highest point with pumping
-def calc_elev_diff_hstart_hmax():
-    """calculate the elevation difference on segment between starting wwtp\
-     to the highest point on the segment with pumping scenario"""
+def calc_elev_diff_hstart_hmax(hstart, hmax):
 
-    elev_diff_hstart_hmax = hmax_segment_sd[0] - wwtp_sd1[0]
+    elev_diff_hstart_hmax = hmax_segment_sd[] - wwtp_sd_elev[]
+    print(elev_diff_hstart_hmax)
+
     return elev_diff_hstart_hmax
 
-calc_elev_diff_wwtpend_wwtpstart(a,b)
+wwtp_sd_elev = [497, 467, 460, 330, 377, 383, 382] #wwtpsd1,2,3,4,5,6,7
+hmax_segment_sd = [497, 537, 600, 600, 600, 530, 530, 600, 524, 557, 390, 520, 530, 530, 572, 575]
+
+calc_elev_diff_wwtpend_wwtpstart(hmax_segment_sd[1],wwtp_sd_elev[1])
+
 
 
 #A2. calculating the elevation difference on segment between highest point and ending wwtp with pumping
