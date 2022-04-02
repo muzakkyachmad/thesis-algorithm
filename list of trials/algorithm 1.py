@@ -1,3 +1,6 @@
+
+import hydraulics_coeff from hydraulics_coeff
+
 #wwtpn = [elevation, flowrate(m3/s), population, and base cost] based on sd wwtp data
 
 wwtp_sd1 = [497, 0.005, 4066, 10000]
@@ -5,69 +8,91 @@ wwtp_sd2 = [467, 0.006, 4156, 15000]
 
 hmax_segment_sd12 = 497 #hmax segment only from WWTP 1-2
 
+#data
+hydraulics_coeff = {
+    manning_coeff: 0.013,
+    ks: 0.0015,
+    viscosity: 0.000001,
+    gravity_coeff: 9.81,
+    efficincy_pump: 0.8,
+    water_density: 1000
+    }
+
 
 #example route = sd1-sd2
 
 #1. PART OF PUMPING ALGORITHM
 
-#functions to calculate the elevation difference between selected wwtp
+
+
+#start
 def calc_elev_diff_wwtpend_wwtpstart(hend, hstart):
+    """function to calculate the elevation differences between the selected wwtp of each segment"""
 
     elev_diff_wwtpend_wwtpstart = hend - hstart
-    print(elev_diff_wwtpend_wwtpstart)
-
     return elev_diff_wwtpend_wwtpstart
 
 calc_elev_diff_wwtpend_wwtpstart(wwtp_sd2[0],wwtp_sd1[0])
 
 
+#A. PART OF PUMPING - GREEN BOXES
 
-#A. PART OF PUMPING
-
-
+#A1
 def calc_elev_diff_hstart_hmax(hstart, hmax):
+    """function to calculate the elevation differences from the starting wwtp
+    to the highest point of the segment"""
 
     elev_diff_hstart_hmax = hmax - hstart
-    print(elev_diff_hstart_hmax)
-
     return elev_diff_hstart_hmax
 
 calc_elev_diff_hstart_hmax(wwtp_sd1[0],hmax_segment_sd12)
 
-
-
+#A2.
 def calc_elev_diff_hmax_hend(hmax, hend):
-    elev_diff_hmax_hend = hmax - hend
-    print(elev_diff_hmax_hend)
+    """function to calculate the elevation differences from the highest point to
+    the end wwtp of the segment"""
 
+    elev_diff_hmax_hend = hmax - hend
     return elev_diff_hmax_hend
 
-calc_elev_diff_hmax_hend(hmax_segment_sd12, wwtp_sd2[0])
+#calc_elev_diff_hmax_hend(hmax_segment_sd12, wwtp_sd2[0])
 
 
-
+#B1
 def calc_slope_to_hmax_with_pump(flowrate):
-    slope_to_hmax_with_pump = (2.33 * flowrate * (0.134 ** (-0.46)))
-    print(slope_to_hmax_with_pump)
+    """function to calculate the slope between starting wwtp to highest point of the segment"""
+
+    slope_to_hmax_with_pump = (2.33 * 0.0001 * (flowrate ** (-0.46)))
     return slope_to_hmax_with_pump
 
-calc_slope_to_hmax_with_pump(wwwtp_sd1[1])
+calc_slope_to_hmax_with_pump(wwtp_sd1[1])
 
 
-def calc_diameter_to_hmax_with_pumping(flowrate, manning, slope):
-    diameter_to_hmax_with_pumping = (((flowrate * manning) / (0.3117 * (slope ** 0.5))) ** 0.375)
-    print(diameter_to_hmax_with_pumping)
-    return diameter_to_hmax_with_pumping
+#B2
+def calc_diameter_to_hmax_with_pump(flowrate, manning, slope):
+    """function to calculate the slope between starting wwtp to highest point of the segment"""
 
-#data
-manning_coeff = 0.013
-ks = 0.0015
-viscosity = 0.000001
-gravity_coeff = 9.81
-efficincy_pump = 0.8
-water_density = 1000
+    diameter_to_hmax_with_pump = (((flowrate * manning) / (0.3117 * (slope ** 0.5))) ** 0.375)
 
-calc_diameter_to_hmax_with_pumping(wwtp_sd1[1], manning_coeff, calc_slope_to_hmax_with_pump(wwtp_sd1[1]))
+    return diameter_to_hmax_with_pump
+
+calc_diameter_to_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1))
+
+#B3
+def calc_velo_to_hmax_with_pump(flowrate, diameter):
+    """function to calculate and check the velocity in the pipe
+    between starting wwtp to highest point of the segment"""
+
+    velo_to_hmax_with_pump = (flowrate * 4) / (3.14 * (diameter ** 2))
+
+    return velo_to_hmax_with_pump
+
+calc_diameter_to_hmax_with_pump(wwtp_sd1[1], calc_diameter_to_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1)))
+
+
+
+
+calc_diameter_to_hmax_with_pumping(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1[1]))
 
 
 def calc_slope_from_hmax_with_pump(flowrate):
