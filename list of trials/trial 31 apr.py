@@ -9,3 +9,9 @@ def calc_elev_diff_wwtpend_wwtpstart(hend, hstart):
     return hend - hstart
 
 calc_elev_diff_wwtpend_wwtpstart(wwtp_sd2[0],wwtp_sd1[0])
+
+
+
+
+import numpy
+
