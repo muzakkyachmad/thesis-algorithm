@@ -209,12 +209,19 @@ calc_oper_main_cost_to_hmax_with_pump()
 
 
 
-#C. PART OF WITHOUT PUMPING
+#C. PUMPING ALGORITHM - SEGMENT: HMAX - ENDING WWTP
 
 #C1
-def calc_slope_to_hmax_wihout_pumping():
-    slope_to_hmax_without_pump = (2.33 * wwtp_sd1[1] * (0.134 ** (-0.46)))
-    return slope_to_hmax_without_pump
+def calc_slope_from_hmax_with_pump(flowrate):
+    slope_from_hmax_with_pump = (2.33 * flowrate * (0.134 ** (-0.46)))
+    return slope_from_hmax_with_pump
+
+calc_slope_from_hmax_with_pump(wwtp_sd1[1])
+
+
+#C2
+def calc_diameter_from_hmax_wwith_pump():
+
 
 
 
