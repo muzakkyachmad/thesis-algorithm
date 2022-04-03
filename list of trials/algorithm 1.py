@@ -3,12 +3,12 @@
 wwtp_sd1 = [497, 0.005, 4066, 10000]
 wwtp_sd2 = [467, 0.006, 4156, 15000]
 
+
 #hmax segment only from WWTP 1-2 [elev, dist 1-hmax, dist hmax-2, total dist]
 hmax_segment_sd12 = [497, 1000, 590, 1590]
 
 
-
-#data
+#data of hydraulics coefficients
 hydraulics_coeff = {
     manning_coeff: 0.013,
     ks: 0.0015,
@@ -18,6 +18,11 @@ hydraulics_coeff = {
     water_density: 1000
     }
 
+
+#data for pipe price for each diameter in mm [50, 80, 100, 125, 150, 200, 250]
+pipe_price_per_diam = [227.1, 259.7, 291.1, 326.6, 361.6, 459.7, 529.2]
+
+
 #sample route = wwtp 1 - wwtp 2 - wwtp
 #example segment = sd1-sd2
 
@@ -25,7 +30,8 @@ hydraulics_coeff = {
 #This is a python file that contains a list of functions to run the pumping decision-making algorithm
 #Every function has codes which based on the algo concept sheet in the Excel file
 
-#PART OF PUMPING ALGORITHM - this algorithm will be represented in scheme under the black dashed box
+#FUNCTIONS OF PUMPING ALGORITHM - represented inside the box with black dashed lines
+
 
 #A0
 def calc_elev_diff_wwtpend_wwtpstart(hend, hstart):
@@ -48,6 +54,7 @@ def calc_elev_diff_hstart_hmax(hstart, hmax):
     return elev_diff_hstart_hmax
 
 calc_elev_diff_hstart_hmax(wwtp_sd1[0],hmax_segment_sd12[0])
+
 
 
 #A2
@@ -123,14 +130,12 @@ def calc_ksd_to_hmax_with_pump(ks, diameterb):
 calc_ksd_to_hmax_with_pump(hydraulics_coeff[1], calc_diameter_to_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1[1])))
 
 
-
 #B6
 def frictloss_to_hmax_with_pump():
     """function to calculate the friction loss in the pipe between
     starting wwtp to highest point of the segment"""
 
     frictloss_to_hmax_with_pump = 0.05
-
     return frictloss_to_hmax_with_pump
 
 calc_frictloss_to_hmax_with_pump()
@@ -251,56 +256,139 @@ def calc_rey_from_hmax_with_pump(diameterc, velocityc, viscosityc):
 
     return rey_from_hmax_with_pump
 
-calc_rey_to_hmax_with_pump(calc_diameter_from_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1[1])),\
+calc_rey_from_hmax_with_pump(calc_diameter_from_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1[1])),\
                            calc_velo_to_hmax_with_pump(wwtp_sd1[1], calc_diameter_to_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1[1]))), \
                            hydraulics_coeff[2])
 
 
+#C5
+def calc_ksd_from_hmax_with_pump(ks, diameterc):
+    """function to calculate and check the ks/D value in the pipe between the highest point to
+    the ending wwtp of the segment"""
+
+    ksd_from_hmax_with_pump = ks / diameterc
+    return ksd_from_hmax_with_pump
+
+calc_ksd_from_hmax_with_pump(hydraulics_coeff[1], calc_diameter_to_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1[1])))
+
+
+#C6
+def frictloss_from_hmax_with_pump():
+    """function to calculate the friction loss inside the pipe between the highest point
+    to the ending wwtp of the segment"""
+
+    frictloss_from_hmax_with_pump = 0.05
+
+    return frictloss_from_hmax_with_pump
+
+calc_frictloss_from_hmax_with_pump()
+
+
+#C7
+def calc_total_head_from_hmax_with_pump(frictionlossc, headc):
+    """function to calculate the total head in the pipe from the highest point to ending wwtp"""
+
+    total_head_from_hmax_with_pump = frictionlossc + headc
+    return total_head_from_hmax_with_pump
+
+calc_total_head_from_hmax_with_pump()
+
+
+#C8
+def calc_pump_pow_from_hmax_with_pump(waterdensity, gravity, totalheadc, flowratec, efficiency):
+    """function to calculate the power of the pump for segment of the highest point to the ending wwtp"""
+    pump_pow_from_hmax_with_pump = ((waterdensity * gravity * totalheadc * flowratec) / efficiency)
+    return pump_pow_from_hmax_with_pump
+
+calc_pump_pow_from_hmax_with_pump(hydraulics_coeff[5], hydraulics_coeff[3], calc_total_head_to_hmax_with_pump(), wwtp_sd1[1], hydraulics_coeff[4])
+
+
+#C9
+def calc_pump_cost_from_hmax_with_pump():
+    """function to calculate the price of the pump in segment from starting wwtp to highest point"""
+
+    pump_cost_from_hmax_with_pump =
+    return pump_cost_from_hmax_with_pump
+
+calc_pump_cost_from_hmax_with_pump()
+
+
+#C10
+def calc_pipe_const_cost_from_hmax_with_pump():
+    """function to calculate the construction cost of the pipeline for segment from the highest point
+    to the ending wwtp"""
+
+    pipe_const_cost_from_hmax_with_pump =
+    return pipe_const_cost_from_hmax_with_pump
+
+calc_pipe_const_cost_from_hmax_with_pump()
+
+
+#C11
+def calc_manhole_from_hmax_with_pump(pipelengthc):
+    """function to calculate the amount of manhole in the segment wwtp start to highest point"""
+
+    return pipelengthc / 50
+
+calc_manhole_from_hmax_with_pump(hmax_segment_sd12[2])
+
+
+#B12
+def calc_manhole_const_cost_to_hmax_with_pump(pricepermanholec, numberofmanholec):
+    """function to calculate the construction cost of manholes in segment wwtp start to highest point"""
+
+    manhole_const_cost_to_hmax_with_pump = numberofmanholec * pricepermanholec
+    return manhole_const_cost_to_hmax_with_pump
+
+calc_manhole_const_cost_to_hmax_with_pump()
+
+
+#B13
+def calc_oper_main_cost_to_hmax_with_pump():
+    """function to calculate the cost of operational and maintenance in segment from wwtp start to
+    highest point with pump"""
+
+    oper_main_cost_to_hmax_with_pump =
+    return oper_main_cost_to_hmax_with_pump
+
+calc_oper_main_cost_to_hmax_with_pump()
 
 
 
-#hydraulic coefficients
-
-hydraulics_coeff = {
-    manning_coeff: 0.013,
-    ks: 0.0015,
-    viscosity: 0.000001,
-    gravity_coeff: 9.81,
-    efficincy_pump: 0.8,
-    water_density: 1000
-    }
-
-#functions to calculate the diameter if the segment is not using pumping
-def calc_diameter_segment_without_pumping():
-    import manning_coeff from hydraulics_coeff
-
-    diameter_segment_without_pumping = (((wwtp_sd1[1] * manning_coeff) / (0.3117 * (calc_slope_to_hmax() ** 0.5))) ** 0.375)
-
-    return diameter_segment_without_pumping
-
-calc_diameter_segment_without_pumping()
-
-
-
-#functions to velocity of the pipe if the segment is not using pumping
-def calc_velocity_segment_without_pumping():
-    velocity_segment_without_pummping = ((wwtp_sd1[1] * 4) / (3.14 * (calc_diameter_segment_without_pumping() ** 2)))
-    return velocity_segment_without_pummping
 
 
 
 
-#functions to calculate reynold nunmber if the segment is not using pumping
-def calc_reynold_segment_without_pumping():
-    reynold_segment_without_pumping = ((calc_velocity_segment_without_pumping() * calc_diameter_segment_without_pumping()) / viscosity)
-    return reynold_segment_without_pumping
 
 
 
-#functions to calculate ks/D value if the segment is not using pumping
-def calc_ksD_segment_without_pumping():
-    ksD_segment_without_pumping = ks / calc_diameter_segment_without_pumping()
-    return ksD_segment_without_pumping
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -318,7 +406,7 @@ def calc_manhole_segment_without_pumping():
 #function to calculate the construction cost of pipe segment without pumping
 #data of price of each diameter in ILS [50, 80, 100, 125, 150, 200, 250]
 
-pipe_price_per_diam = [227.1, 259.7, 291.1, 326.6, 361.6, 459.7, 529.2]
+
 
 def calc_construct_cost_pipe_segment_without_pumping():
     construct_cost_pipe_segment_without_pumping = pipe_price_per_diam[5] * calc_diameter_segment_without_pumping()
