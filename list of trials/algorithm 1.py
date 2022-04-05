@@ -104,8 +104,7 @@ calc_velo_to_hmax_with_pump(wwtp_sd1[1], calc_diameter_to_hmax_with_pump(wwtp_sd
 
 #B4
 def calc_rey_to_hmax_with_pump(diameterb, velocityb, viscosityb):
-    """function to calculate and check the velocity in the pipe between
-    starting wwtp to highest point of the segment"""
+    """function to calculate and check the velocity in the pipe between starting wwtp to highest point of the segment"""
 
     rey_to_hmax_with_pump = (diameterb * velocityb / viscosityb)
 
@@ -118,8 +117,7 @@ calc_rey_to_hmax_with_pump(calc_diameter_from_hmax_with_pump(wwtp_sd1[1], hydrau
 
 #B5
 def calc_ksd_to_hmax_with_pump(ks, diameterb):
-    """function to calculate and check the ks/D value in the pipe between
-    starting wwtp to highest point of the segment"""
+    """function to calculate and check the ks/D value in the pipe between starting wwtp to highest point of the segment"""
 
     ksd_to_hmax_with_pump = ks / diameterb
 
@@ -130,8 +128,7 @@ calc_ksd_to_hmax_with_pump(hydraulics_coeff[1], calc_diameter_to_hmax_with_pump(
 
 #B6
 def frictloss_to_hmax_with_pump():
-    """function to calculate the friction loss in the pipe between
-    starting wwtp to highest point of the segment"""
+    """function to calculate the friction loss in the pipe between starting wwtp to highest point of the segment"""
 
     frictloss_to_hmax_with_pump = 0.05
     return frictloss_to_hmax_with_pump
@@ -209,6 +206,15 @@ def calc_oper_main_cost_to_hmax_with_pump():
 calc_oper_main_cost_to_hmax_with_pump()
 
 
+#B14
+def calc_pump_station_cost_to_hmax_with_pump():
+    """function to calculate the cost of pump station on segment start wwtp to highest point"""
+
+    pump_station_cost_to_hmax_with_pump =
+    return pump_station_cost_to_hmax_with_pump
+
+calc_pump_station_cost_to_hmax_with_pump()
+
 
 #C. PUMPING ALGORITHM - SEGMENT: HMAX - ENDING WWTP
 
@@ -268,11 +274,9 @@ calc_ksd_from_hmax_with_pump(hydraulics_coeff[1], calc_diameter_to_hmax_with_pum
 
 #C6
 def frictloss_from_hmax_with_pump():
-    """function to calculate the friction loss inside the pipe between the highest point
-    to the ending wwtp of the segment"""
+    """function to calculate the friction loss inside the pipe between the highest point to the ending wwtp of the segment"""
 
     frictloss_from_hmax_with_pump = 0.05
-
     return frictloss_from_hmax_with_pump
 
 calc_frictloss_from_hmax_with_pump()
@@ -328,7 +332,7 @@ calc_manhole_from_hmax_with_pump(hmax_segment_sd12[2])
 
 #C12
 def calc_manhole_const_cost_from_hmax_with_pump(pricepermanholec, numberofmanholec):
-    """function to calculate the construction cost of manholes in segment wwtp start to highest point"""
+    """function to calculate the construction cost of manholes in segment from highest point to ending wwtp"""
 
     manhole_const_cost_from_hmax_with_pump = numberofmanholec * pricepermanholec
     return manhole_const_cost_from_hmax_with_pump
@@ -338,7 +342,7 @@ calc_manhole_const_cost_from_hmax_with_pump()
 
 #C13
 def calc_oper_main_cost_from_hmax_with_pump():
-    """function to calculate the cost of operational and maintenance in segment from wwtp start to highest point with pump"""
+    """function to calculate the cost of operational and maintenance in segment from highest point to ending wwtp with pump"""
 
     oper_main_cost_from_hmax_with_pump =
     return oper_main_cost_from_hmax_with_pump
@@ -346,23 +350,32 @@ def calc_oper_main_cost_from_hmax_with_pump():
 calc_oper_main_cost_from_hmax_with_pump()
 
 
+#C14
+def calc_pump_station_cost_from_hmax_with_pump():
+    """function to calculate the cost of the pumping station in segment highest point to ending wwtp"""
 
-#MAIN COMMAND FOR RUNNING THE DECISION-MAKING OF PUMPING ALGORITHM
 
-#1. decision making to calculate elevation difference (A0, A1, A2)
+#MAIN COMMAND FOR RUNNING THE DECISION-MAKING PUMPING ALGORITHM
+
+#1. calculate the elevation difference (A0)
 elev_a0 = calc_elev_diff_wwtpend_wwtpstart(wwtp_sd2[0],wwtp_sd1[0])
+print(elev_a0)
+
+if elev_a0 > 0:
+    elev_a1
+
+#2. calculate the elevation difference for each segment
 elev_a1 = calc_elev_diff_hstart_hmax(wwtp_sd1[0],hmax_segment_sd12[0])
 elev_a2 =
 
 
 #2. If elevation is negative, then use gravity, otherwise use pump
-if elev_a0 > 0:
-    print(elev_a1)
-    print(elev_a2)
-
-
+if elev_a0 > 0: #if hend-hstart is positive, calculate hmax-hstart segment
+    elev_a1
+elif elev_a0 > 0: #if hend-start is positive, calculate hmax-hend segment
+    elev_a2
 else:
-    #code for pump
+    #command to run the gravity calculation
     head = calc_elev_diff_hstart_hmax(wwtp_sd1[0], hmax_segment_sd12)
     slope = calc_slope_to_hmax_with_pump(wwwtp_sd1[1])
 
