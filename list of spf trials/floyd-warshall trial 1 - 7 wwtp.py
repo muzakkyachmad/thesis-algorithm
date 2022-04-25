@@ -1,13 +1,5 @@
 
-#algorithm concept or framework A using floyd warshall based on c.p
-
 def floyd_warshall(nodes, edges):
-    """
-
-    :param list nodes: the set of nods
-    :param dict edges: the set of edges e.g., {(nodes, nodes): distance}
-    :return: the shortest path lengths between all pairs of nodes
-    """
 
     d = {(u,v): float('inf') if u != v else 0 for u in nodes for v in nodes}
     for (u,v), w_uv in edges.items():
@@ -24,7 +16,7 @@ def floyd_warshall(nodes, edges):
 
     return d #shortest path lengths
 
-#input data of the WWTP - WWTP code is represented in number and started from 0 as WWTP. data = 7 wwtp from python
+#input data of the WWTP - WWTP code is represented in number and started from 0 as WWTP | data = 7 wwtp from python
 
 nodes = [0, 1, 2, 3, 4, 5, 6]
 edges = {(0, 1): 1590, (0, 2): 3736, (0, 4): 3281,
