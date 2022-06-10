@@ -27,8 +27,8 @@ pipe_price_per_diam = [227.1, 259.7, 291.1, 326.6, 361.6, 459.7, 529.2]
 #example segment = sd1-sd2
 
 #######################################################################################################################
-#This is a python file that contains a list of functions to run the pumping decision-making algorithm after getting the list of path from Floyd-Warshall algorithm
-#Every function has codes which based on the algo concept sheet in the Excel file
+#This is a python file that contains a list of functions to run the pumping decision-making algorithm after getting the result which contains list of path from Floyd-Warshall algorithm simulation
+#Every function has codes which based on the algo concept sheet in the Excel file to make it easier to be tracked
 
 
 
@@ -46,7 +46,7 @@ def calc_elev_diff_wwtpend_wwtpstart(hend, hstart):
 
 
 #######################################################################################################################
-#A. PART OF PUMPING - DECISION MAKING OF SYSTEM
+#A. PART OF PUMPING - DECISION MAKING OF DETERMINING THE SYSTEM - PUMPING OR GRAVITY
 
 #A1
 def calc_elev_diff_hstart_hmax(hstart, hmax):
@@ -55,8 +55,8 @@ def calc_elev_diff_hstart_hmax(hstart, hmax):
     elev_diff_hstart_hmax = hmax - hstart
     return elev_diff_hstart_hmax
 
-#executable command for calling A1
-calc_elev_diff_hstart_hmax(wwtp_sd1[0],hmax_segment_sd12[0])
+#executable command for calling A1 function
+calc_elev_diff_hstart_hmax(wwtp_sd1[0],hmax_segment_sd12[0]) #still on progress to be changed by reading the excel file
 
 
 #A2
@@ -67,7 +67,7 @@ def calc_elev_diff_hmax_hend(hmax, hend):
     return elev_diff_hmax_hend
 
 #executable command for calling A2
-calc_elev_diff_hmax_hend(hmax_segment_sd12[0], wwtp_sd2[0])
+calc_elev_diff_hmax_hend(hmax_segment_sd12[0], wwtp_sd2[0]) #still on progress to be changed by reading the excel file
 
 #######################################################################################################################
 #B. PUMPING ALGORITHM - SEGMENT: START WWTP - HIGHEST POINT | ORANGE BOXES
