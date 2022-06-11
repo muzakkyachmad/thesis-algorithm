@@ -1,7 +1,11 @@
 
 def floyd_warshall(nodes, edges): #definition of the floyd-warshall algorith
-    """this function is defining the floyd-warshall algorithm definition and its component
-    param: distance (d), starting wwtp(u), ending wwtp(v), and alternative route(k)"""
+    """
+    :param list nodes: the set of nods
+    :param dict edges: the set of edges e.g., {(nodes, nodes): distance}
+    :return: the shortest path lengths between all pairs of nodes
+
+    """
 
     d = {(u,v): float('inf') if u != v else 0 for u in nodes for v in nodes} #d is the distance of the start wwtp to the destination
     for (u,v), w_uv in edges.items():
