@@ -80,7 +80,7 @@ def printPath(path):
 
 # Driver code
 if __name__ == '__main__':
-    MAXM,INF = 100,10**7
+    MAXM,INF = 100,10**7 #the masx value for the infinite
     dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
     Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
  
