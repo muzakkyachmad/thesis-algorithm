@@ -1,14 +1,14 @@
 
-#wwtpn = [elevation, flowrate(m3/s), population, and base cost] based on sd wwtp data
+#wwtpn = [elevation, flowrate(m3/s), population, and base cost] based on sd wwtp data - this data is temporary as an input data - will be integrated with the spf algorthm if the nodes is already brokedown
 wwtp_sd1 = [497, 0.005, 4066, 10000]
 wwtp_sd2 = [467, 0.006, 4156, 15000]
 
 
-#hmax segment only from WWTP 1-2 [elev, dist 1-hmax, dist hmax-2, total dist]
+#hmax segment only from WWTP 1-2 [elev, dist 1-hmax, dist hmax-2, total dist] - this data is using the data for the segment. only for highest point
 hmax_segment_sd12 = [497, 1000, 590, 1590]
 
 
-#data of hydraulics coefficients
+#data of hydraulics coefficients - this data is a list of coefficient , will be integrated in excel
 hydraulics_coeff = {
     manning_coeff: 0.013,
     ks: 0.0015,
@@ -19,7 +19,7 @@ hydraulics_coeff = {
     }
 
 
-#data for pipe price for each diameter in mm [50, 80, 100, 125, 150, 200, 250]
+#data for pipe price for each diameter in mm [50, 80, 100, 125, 150, 200, 250] - the data for the pipe price
 pipe_price_per_diam = [227.1, 259.7, 291.1, 326.6, 361.6, 459.7, 529.2]
 
 
@@ -36,13 +36,13 @@ pipe_price_per_diam = [227.1, 259.7, 291.1, 326.6, 361.6, 459.7, 529.2]
 
 
 #A0
-def calc_elev_diff_wwtpend_wwtpstart(hend, hstart):
+def calc_elev_diff_wwtpend_wwtpstart(hend, hstart): #this line is defining the function description, the formula, and the command to call it. - it will remain same to the others
     """function to calculate the elevation differences between the selected wwtp from the list"""
 
-    elev_diff_wwtpend_wwtpstart = hend - hstart
+    elev_diff_wwtpend_wwtpstart = hend - hstart #the formula to calculate the elevation difference
     return elev_diff_wwtpend_wwtpstart
 
-#calc_elev_diff_wwtpend_wwtpstart(wwtp_sd2[0],wwtp_sd1[0])
+calc_elev_diff_wwtpend_wwtpstart(wwtp_sd2[0],wwtp_sd1[0])
 
 
 #######################################################################################################################
