@@ -80,7 +80,7 @@ def printPath(path):
 
 # Driver code
 if __name__ == '__main__':
-    MAXM,INF = 100,10**7 #the masx value for the infinite
+    MAXM,INF = 27**2,10**7 #the masx value for the infinite
     dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
     Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
  
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     
     #read excel data
     # df = pd.read_excel('wwtpdatafinal.xlsx', sheet_name='27matrix',index_col=0)
-    graph = df.values.tolist()
+    graph = df.values.tolist() #taking the data and convert it to list of list
     V = len(df.index)
  
     # Function to initialise the
@@ -106,23 +106,9 @@ if __name__ == '__main__':
     floydWarshall(V)
     path = []
  
-    # Path from node 1 to 3
-    print("Shortest path from 1 to 3: ", end = "")
-    path = constructPath(1, 3)
-    printPath(path)
- 
-    # Path from node 0 to 2
-    print("Shortest path from 0 to 2: ", end = "")
-    path = constructPath(0, 2)
-    printPath(path)
- 
-    # Path from node 3 to 2
-    print("Shortest path from 3 to 2: ", end = "")
-    path = constructPath(3, 2)
-    printPath(path)
 
     
-    for i in range(len(graph)):
+    for i in range(len(graph)): #loop the command
         for j in range(len(graph[0])):
             print(f"Shortest path from {i} to {j}: ", end = "")
             path = constructPath(i, j)
