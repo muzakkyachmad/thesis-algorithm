@@ -74,14 +74,12 @@ if __name__ == '__main__':
     dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
     Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
 
-    V = 7
-    graph = [[0, 1590, 3736, INF, 3281, INF, INF],
-             [1590, 0, 1249, 5783, 3795, INF, INF],
-             [3736, 1249, 0, 5490, 4282, INF, INF],
-             [INF, 5783, 5490, 0, 2894, 6395, 9607],
-             [3281, 3795, 4282, 2894, 0, 5117, 8676],
-             [INF, INF, INF, 6395, 5117, 0, 7331],
-             [INF, INF, INF, 9607, 8676, 7331, 0]]
+#read excel data
+    import pandas as pd
+    df = pd.read_excel('SPF_Results.xlsx', sheet_name='SPF_27D_WWTP',index_col=0)
+    graph = df.values.tolist() #taking the data and convert it to list of list
+    V = len(df.index)
+
 
     # Function to initialise the
     # distance and Next array
@@ -93,210 +91,15 @@ if __name__ == '__main__':
     floydWarshall(V)
     path = []
 
-    # Path from node 0 to 1
-    print("Shortest path from 0 to 1: ", end="")
-    path = constructPath(0, 1)
-    printPath(path)
+    for i in range(len(graph)): #loop the command
+        for j in range(len(graph[0])):
+            print(f"Shortest path from {i} to {j}: ", end = "")
+            path = constructPath(i, j)
+            printPath(path)
 
-    # Path from node 0 to 2
-    print("Shortest path from 0 to 2: ", end="")
-    path = constructPath(0, 2)
-    printPath(path)
 
-    # Path from node 0 to 3
-    print("Shortest path from 0 to 3: ", end="")
-    path = constructPath(0, 3)
-    printPath(path)
 
-    # Path from node 0 to 4
-    print("Shortest path from 0 to 4: ", end="")
-    path = constructPath(0, 4)
-    printPath(path)
 
-    # Path from node 0 to 5
-    print("Shortest path from 0 to 5: ", end="")
-    path = constructPath(0, 5)
-    printPath(path)
-
-    # Path from node 0 to 6
-    print("Shortest path from 0 to 6: ", end="")
-    path = constructPath(0, 6)
-    printPath(path)
-
-    # Path from node 1 to 2
-    print("Shortest path from 1 to 2: ", end="")
-    path = constructPath(1, 2)
-    printPath(path)
-
-    # Path from node 1 to 3
-    print("Shortest path from 1 to 3: ", end="")
-    path = constructPath(1, 3)
-    printPath(path)
-
-    # Path from node 1 to 4
-    print("Shortest path from 1 to 4: ", end="")
-    path = constructPath(1, 4)
-    printPath(path)
-
-    # Path from node 1 to 5
-    print("Shortest path from 1 to 5: ", end="")
-    path = constructPath(1, 5)
-    printPath(path)
-
-    # Path from node 1 to 6
-    print("Shortest path from 1 to 6: ", end="")
-    path = constructPath(1, 6)
-    printPath(path)
-
-    # Path from node 2 to 0
-    print("Shortest path from 2 to 0: ", end="")
-    path = constructPath(2, 0)
-    printPath(path)
-
-    # Path from node 2 to 1
-    print("Shortest path from 2 to 1: ", end="")
-    path = constructPath(2, 1)
-    printPath(path)
-
-    # Path from node 2 to 3
-    print("Shortest path from 2 to 3: ", end="")
-    path = constructPath(2, 3)
-    printPath(path)
-
-    # Path from node 2 to 4
-    print("Shortest path from 2 to 4: ", end="")
-    path = constructPath(2, 4)
-    printPath(path)
-
-    # Path from node 2 to 5
-    print("Shortest path from 2 to 5: ", end="")
-    path = constructPath(2, 5)
-    printPath(path)
-
-    # Path from node 2 to 6
-    print("Shortest path from 2 to 6: ", end="")
-    path = constructPath(2, 0)
-    printPath(path)
-
-    # Path from node 3 to 0
-    print("Shortest path from 3 to 0: ", end="")
-    path = constructPath(3, 0)
-    printPath(path)
-
-    # Path from node 3 to 1
-    print("Shortest path from 3 to 1: ", end="")
-    path = constructPath(3, 1)
-    printPath(path)
-
-    # Path from node 3 to 2
-    print("Shortest path from 3 to 2: ", end="")
-    path = constructPath(3, 2)
-    printPath(path)
-
-    # Path from node 3 to 4
-    print("Shortest path from 3 to 4: ", end="")
-    path = constructPath(3, 4)
-    printPath(path)
-
-    # Path from node 3 to 5
-    print("Shortest path from 3 to 5: ", end="")
-    path = constructPath(3, 5)
-    printPath(path)
-
-    # Path from node 3 to 6
-    print("Shortest path from 3 to 6: ", end="")
-    path = constructPath(3, 6)
-    printPath(path)
-
-    # Path from node 4 to 0
-    print("Shortest path from 4 to 0: ", end="")
-    path = constructPath(4, 0)
-    printPath(path)
-
-    # Path from node 4 to 1
-    print("Shortest path from 4 to 1: ", end="")
-    path = constructPath(4, 1)
-    printPath(path)
-
-    # Path from node 4 to 2
-    print("Shortest path from 4 to 2: ", end="")
-    path = constructPath(4, 2)
-    printPath(path)
-
-    # Path from node 4 to 3
-    print("Shortest path from 4 to 3: ", end="")
-    path = constructPath(4, 3)
-    printPath(path)
-
-    # Path from node 4 to 5
-    print("Shortest path from 4 to 5: ", end="")
-    path = constructPath(4, 5)
-    printPath(path)
-
-    # Path from node 4 to 6
-    print("Shortest path from 4 to 6: ", end="")
-    path = constructPath(4, 6)
-    printPath(path)
-
-    # Path from node 5 to 0
-    print("Shortest path from 5 to 0: ", end="")
-    path = constructPath(5, 0)
-    printPath(path)
-
-    # Path from node 5 to 1
-    print("Shortest path from 5 to 1: ", end="")
-    path = constructPath(5, 1)
-    printPath(path)
-
-    # Path from node 5 to 2
-    print("Shortest path from 5 to 2: ", end="")
-    path = constructPath(5, 2)
-    printPath(path)
-
-    # Path from node 5 to 3
-    print("Shortest path from 5 to 3: ", end="")
-    path = constructPath(5, 3)
-    printPath(path)
-
-    # Path from node 5 to 4
-    print("Shortest path from 5 to 4: ", end="")
-    path = constructPath(5, 4)
-    printPath(path)
-
-    # Path from node 5 to 6
-    print("Shortest path from 5 to 6: ", end="")
-    path = constructPath(5, 6)
-    printPath(path)
-
-    # Path from node 6 to 0
-    print("Shortest path from 6 to 0: ", end="")
-    path = constructPath(6, 0)
-    printPath(path)
-
-    # Path from node 6 to 1
-    print("Shortest path from 6 to 1: ", end="")
-    path = constructPath(6, 1)
-    printPath(path)
-
-    # Path from node 6 to 2
-    print("Shortest path from 6 to 2: ", end="")
-    path = constructPath(6, 2)
-    printPath(path)
-
-    # Path from node 6 to 3
-    print("Shortest path from 6 to 3: ", end="")
-    path = constructPath(6, 3)
-    printPath(path)
-
-    # Path from node 6 to 4
-    print("Shortest path from 6 to 4: ", end="")
-    path = constructPath(6, 4)
-    printPath(path)
-
-    # Path from node 6 to 5
-    print("Shortest path from 6 to 5: ", end="")
-    path = constructPath(6, 5)
-    printPath(path)
 
 
 
