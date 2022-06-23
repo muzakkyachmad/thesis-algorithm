@@ -521,6 +521,9 @@ def calc_grand_total_cost():
 
 calc_total_cons_and_oper_segment_gravity()
 
+#####################################################################################################################
+#calculating the Net Present Value (NPV)
+
 
 #####################################################################################################################
 #list of command to execute the algorithm
