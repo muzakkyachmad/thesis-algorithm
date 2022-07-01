@@ -6,7 +6,7 @@ Created on Sun Jun 12 14:02:42 2022
 """
 import pandas as pd
 
-df = pd.read_excel('test.xlsx', sheet_name='7matrix',index_col=0)
+#df = pd.read_excel('test.xlsx', sheet_name='7matrix',index_col=0)
 
 # Python3 program to find the shortest
 # path between any two nodes using
@@ -92,10 +92,11 @@ if __name__ == '__main__':
     
     
     #read excel data
-    # df = pd.read_excel('wwtpdatafinal.xlsx', sheet_name='27matrix',index_col=0)
+    df = pd.read_excel('SPF_Results.xlsx', sheet_name='Shortest_path_Matrix',index_col=0)
     graph = df.values.tolist() #taking the data and convert it to list of list
     V = len(df.index)
- 
+
+
     # Function to initialise the
     # distance and Next array
     initialise(V)

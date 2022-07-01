@@ -244,10 +244,10 @@ def calc_rey_from_hmax_with_pump(diameterc, velocityc, viscosityc):
 
 
 #C5
-def calc_ksd_from_hmax_with_pump(ks, diameterc):
+def calc_ksd_from_hmax_with_pump(ks, diameter_c):
     """function to calculate and check the ks/D value in the pipe between the highest point to the ending wwtp of the segment"""
 
-    ksd_from_hmax_with_pump = ks / diameterc
+    ksd_from_hmax_with_pump = ks / diameter_c
     return ksd_from_hmax_with_pump
 
 #calc_ksd_from_hmax_with_pump(hydraulics_coeff[1], calc_diameter_to_hmax_with_pump(wwtp_sd1[1], hydraulics_coeff[0], calc_slope_to_hmax_with_pump(wwtp_sd1[1])))
@@ -264,19 +264,19 @@ def frictloss_from_hmax_with_pump():
 
 
 #C7
-def calc_total_head_from_hmax_with_pump(frictionlossc, headc):
+def calc_total_head_from_hmax_with_pump(frictionloss_c, head_c):
     """function to calculate the total head in the pipe from the highest point to ending wwtp"""
 
-    total_head_from_hmax_with_pump = frictionlossc + headc
+    total_head_from_hmax_with_pump = frictionloss_c + head_c
     return total_head_from_hmax_with_pump
 
 #calc_total_head_from_hmax_with_pump()
 
 
 #C8
-def calc_pump_pow_from_hmax_with_pump(waterdensity, gravity, totalheadc, flowratec, efficiency):
+def calc_pump_pow_from_hmax_with_pump(waterdensity, gravity, totalhead_c, flowrate_c, efficiency):
     """function to calculate the power of the pump for segment of the highest point to the ending wwtp"""
-    pump_pow_from_hmax_with_pump = ((waterdensity * gravity * totalheadc * flowratec) / efficiency)
+    pump_pow_from_hmax_with_pump = ((waterdensity * gravity * totalhead_c * flowrate_c) / efficiency)
     return pump_pow_from_hmax_with_pump
 
 #calc_pump_pow_from_hmax_with_pump(hydraulics_coeff[5], hydraulics_coeff[3], calc_total_head_to_hmax_with_pump(), wwtp_sd1[1], hydraulics_coeff[4])
@@ -303,19 +303,19 @@ def calc_pipe_const_cost_from_hmax_with_pump():
 
 
 #C11
-def calc_manhole_from_hmax_with_pump(pipelengthc):
+def calc_manhole_from_hmax_with_pump(pipelength_c):
     """function to calculate the amount of manhole in the segment wwtp start to highest point"""
 
-    return pipelengthc / 50
+    return pipelength_c / 50
 
 #calc_manhole_from_hmax_with_pump(hmax_segment_sd12[2])
 
 
 #C12
-def calc_manhole_const_cost_from_hmax_with_pump(pricepermanholec, numberofmanholec):
+def calc_manhole_const_cost_from_hmax_with_pump(pricepermanhole_c, numberofmanhole_c):
     """function to calculate the construction cost of manholes in segment from highest point to ending wwtp"""
 
-    manhole_const_cost_from_hmax_with_pump = numberofmanholec * pricepermanholec
+    manhole_const_cost_from_hmax_with_pump = numberofmanhole_c * pricepermanhole_c
     return manhole_const_cost_from_hmax_with_pump
 
 #calc_manhole_const_cost_from_hmax_with_pump()
@@ -481,10 +481,10 @@ def calc_total_cons_and_oper_segment_gravity():
 
 
 #E3
-def calc_grand_total_cost():
+def calc_grand_total_cost(e1, e2, e3):
     """function to calculate the total const of the construction and operational&maintenance from both segments"""
 
-    grand_total_cost = E1 + E2 + E3
+    grand_total_cost = e1 + e2 + e3
     return grand_total_cost
 
 #calc_total_cons_and_oper_segment_gravity()
