@@ -1,8 +1,13 @@
-#this is the algorithm to execute the
+#creator : Achmad Muzakky (Zakky) - MSc Sanitary Engineering IHE Delft 2019
 
-# Python3 program to find the shortest
-# path between any two nodes using
-# Floyd Warshall Algorithm.
+#file name : algo_fw_2 = algorithm floyd-warshall stage 2
+#definition : This python file is a file that contains some codes to determine the routes from the SPF results
+#input data : An Excel file of the SPF results that contains the shortest path route of each WWTP in matrix
+#mechanism : This python file will read the Excel data of each WWTP data in matrix on the sheet and execute it
+#output data : The program will release the list of the shortest path route in the run terminal
+
+#######################################################################################################################
+#executing the list of the
 
 # Initializing the distance and
 # Next array
@@ -70,13 +75,13 @@ def printPath(path):
 
 # Driver code
 if __name__ == '__main__':
-    MAXM, INF = 27 ** 27, 10 ** 7
+    MAXM, INF = 27**2, 10**7
     dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
     Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
 
 #read excel data
     import pandas as pd
-    df = pd.read_excel('SPF_Results.xlsx', sheet_name='SPF_27D_WWTP',index_col=0)
+    df = pd.read_excel('spf_results_27d.xlsx', sheet_name='27d_matrix',index_col=0)
     graph = df.values.tolist() #taking the data and convert it to list of list
     V = len(df.index)
 
@@ -96,6 +101,7 @@ if __name__ == '__main__':
             print(f"Shortest path from {i} to {j}: ", end = "")
             path = constructPath(i, j)
             printPath(path)
+
 
 
 

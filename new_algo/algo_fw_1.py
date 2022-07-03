@@ -1,6 +1,6 @@
 #creator : Achmad Muzakky (Zakky) - MSc Sanitary Engineering IHE Delft 2019
 
-#file name : algo_fw_1 = algorithm floyd-warshall version 1
+#file name : algo_fw_1 = algorithm floyd-warshall stage 1
 #definition : This python file is a file that contains some codes to execute the floyd-warshall algorithm of each WWTP data from a matrix data on the Excel data
 #input data : An Excel file named wwtp_data and contains some sheets which represents every data of each WWTP
 #mechanism : This python file will read the Excel data of each WWTP data in matrix on each sheet and execute it
