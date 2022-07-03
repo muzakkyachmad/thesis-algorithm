@@ -1,4 +1,4 @@
-#creator : Achmad Muzakky (Zakky) - MSc Sanitary Engineering IHE Delft 2019
+#creator : Achmad Muzakky (Zakky) - MSc Sanitary Engineering IHE Delft 2019 - mixed
 
 #file name : algo_fw_2 = algorithm floyd-warshall stage 2
 #definition : This python file is a file that contains some codes to determine the routes from the SPF results
@@ -7,7 +7,7 @@
 #output data : The program will release the list of the shortest path route in the run terminal
 
 #######################################################################################################################
-#executing the list of the
+#executing the list of the spf results of 27D WWTP - without considering the technology
 
 # Initializing the distance and
 # Next array
@@ -16,11 +16,11 @@ def initialise(V):
 
     for i in range(V):
         for j in range(V):
-            dis[i][j] = graph[i][j]
+            dis[i][j] = graph1[i][j]
 
             # No edge between node
             # i and j
-            if (graph[i][j] == INF):
+            if (graph1[i][j] == INF):
                 Next[i][j] = -1
             else:
                 Next[i][j] = j
@@ -29,7 +29,7 @@ def initialise(V):
 # Function construct the shortest
 # path between u and v
 def constructPath(u, v):
-    global graph, Next
+    global graph1, Next
 
     # If there's no path between
     # node u and v, simply return
@@ -81,10 +81,10 @@ if __name__ == '__main__':
 
 #read excel data
     import pandas as pd
-    df = pd.read_excel('spf_results_27d.xlsx', sheet_name='27d_matrix',index_col=0)
-    graph = df.values.tolist() #taking the data and convert it to list of list
-    V = len(df.index)
 
+    df1 = pd.read_excel('spf_results_27d.xlsx', sheet_name='27d_matrix',index_col=0)
+    graph1 = df1.values.tolist() #taking the data and convert it to list of list
+    V = len(df1.index)
 
     # Function to initialise the
     # distance and Next array
@@ -96,17 +96,495 @@ if __name__ == '__main__':
     floydWarshall(V)
     path = []
 
-    for i in range(len(graph)): #loop the command
-        for j in range(len(graph[0])):
+    for i in range(len(graph1)): #loop the command
+        for j in range(len(graph1[0])):
+            print(f"Shortest path from {i} to {j}: ", end = "")
+            path = constructPath(i, j)
+            printPath(path)
+
+#######################################################################################################################
+#executing the list of the spf results - 7 SD WWTP without considering the tech
+
+# Initializing the distance and
+# Next array
+def initialise(V):
+    global dis, Next
+
+    for i in range(V):
+        for j in range(V):
+            dis[i][j] = graph2[i][j]
+
+            # No edge between node
+            # i and j
+            if (graph2[i][j] == INF):
+                Next[i][j] = -1
+            else:
+                Next[i][j] = j
+
+
+# Function construct the shortest
+# path between u and v
+def constructPath(u, v):
+    global graph2, Next
+
+    # If there's no path between
+    # node u and v, simply return
+    # an empty array
+    if (Next[u][v] == -1):
+        return {}
+
+    # Storing the path in a vector
+    path = [u]
+    while (u != v):
+        u = Next[u][v]
+        path.append(u)
+
+    return path
+
+
+# Standard Floyd Warshall Algorithm
+# with little modification Now if we find
+# that dis[i][j] > dis[i][k] + dis[k][j]
+# then we modify next[i][j] = next[i][k]
+def floydWarshall(V):
+    global dist, Next
+    for k in range(V):
+        for i in range(V):
+            for j in range(V):
+
+                # We cannot travel through
+                # edge that doesn't exist
+                if (dis[i][k] == INF or dis[k][j] == INF):
+                    continue
+                if (dis[i][j] > dis[i][k] + dis[k][j]):
+                    dis[i][j] = dis[i][k] + dis[k][j]
+                    Next[i][j] = Next[i][k]
+
+
+# Print the shortest path
+def printPath(path):
+    n = len(path)
+    for i in range(n - 1):
+        print(path[i], end=" -> ")
+    print(path[n - 1])
+
+
+# Driver code
+if __name__ == '__main__':
+    MAXM, INF = 27**2, 10**7
+    dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+    Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+
+#read excel data
+    import pandas as pd
+
+    df2 = pd.read_excel('spf_results_7sd.xlsx', sheet_name='7sd_matrix',index_col=0)
+    graph2 = df2.values.tolist() #taking the data and convert it to list of list
+    V = len(df2.index)
+
+    # Function to initialise the
+    # distance and Next array
+    initialise(V)
+
+    # Calling Floyd Warshall Algorithm,
+    # this will update the shortest
+    # distance as well as Next array
+    floydWarshall(V)
+    path = []
+
+    for i in range(len(graph2)): #loop the command
+        for j in range(len(graph2[0])):
             print(f"Shortest path from {i} to {j}: ", end = "")
             path = constructPath(i, j)
             printPath(path)
 
 
+#######################################################################################################################
+#executing the list of the spf results - 4 SD - CAS type
+
+# Initializing the distance and
+# Next array
+def initialise(V):
+    global dis, Next
+
+    for i in range(V):
+        for j in range(V):
+            dis[i][j] = graph1[i][j]
+
+            # No edge between node
+            # i and j
+            if (graph3[i][j] == INF):
+                Next[i][j] = -1
+            else:
+                Next[i][j] = j
 
 
+# Function construct the shortest
+# path between u and v
+def constructPath(u, v):
+    global graph3, Next
+
+    # If there's no path between
+    # node u and v, simply return
+    # an empty array
+    if (Next[u][v] == -1):
+        return {}
+
+    # Storing the path in a vector
+    path = [u]
+    while (u != v):
+        u = Next[u][v]
+        path.append(u)
+
+    return path
 
 
+# Standard Floyd Warshall Algorithm
+# with little modification Now if we find
+# that dis[i][j] > dis[i][k] + dis[k][j]
+# then we modify next[i][j] = next[i][k]
+def floydWarshall(V):
+    global dist, Next
+    for k in range(V):
+        for i in range(V):
+            for j in range(V):
+
+                # We cannot travel through
+                # edge that doesn't exist
+                if (dis[i][k] == INF or dis[k][j] == INF):
+                    continue
+                if (dis[i][j] > dis[i][k] + dis[k][j]):
+                    dis[i][j] = dis[i][k] + dis[k][j]
+                    Next[i][j] = Next[i][k]
+
+
+# Print the shortest path
+def printPath(path):
+    n = len(path)
+    for i in range(n - 1):
+        print(path[i], end=" -> ")
+    print(path[n - 1])
+
+
+# Driver code
+if __name__ == '__main__':
+    MAXM, INF = 27**2, 10**7
+    dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+    Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+
+#read excel data
+    import pandas as pd
+
+    df3 = pd.read_excel('spf_results_4sd_cas.xlsx', sheet_name='4sd_cas_matrix',index_col=0)
+    graph3 = df3.values.tolist() #taking the data and convert it to list of list
+    V = len(df3.index)
+
+    # Function to initialise the
+    # distance and Next array
+    initialise(V)
+
+    # Calling Floyd Warshall Algorithm,
+    # this will update the shortest
+    # distance as well as Next array
+    floydWarshall(V)
+    path = []
+
+    for i in range(len(graph3)): #loop the command
+        for j in range(len(graph3[0])):
+            print(f"Shortest path from {i} to {j}: ", end = "")
+            path = constructPath(i, j)
+            printPath(path)
+
+
+#######################################################################################################################
+#executing the list of the spf results - 3 SD - MBR type
+
+# Initializing the distance and
+# Next array
+def initialise(V):
+    global dis, Next
+
+    for i in range(V):
+        for j in range(V):
+            dis[i][j] = graph4[i][j]
+
+            # No edge between node
+            # i and j
+            if (graph4[i][j] == INF):
+                Next[i][j] = -1
+            else:
+                Next[i][j] = j
+
+
+# Function construct the shortest
+# path between u and v
+def constructPath(u, v):
+    global graph4, Next
+
+    # If there's no path between
+    # node u and v, simply return
+    # an empty array
+    if (Next[u][v] == -1):
+        return {}
+
+    # Storing the path in a vector
+    path = [u]
+    while (u != v):
+        u = Next[u][v]
+        path.append(u)
+
+    return path
+
+
+# Standard Floyd Warshall Algorithm
+# with little modification Now if we find
+# that dis[i][j] > dis[i][k] + dis[k][j]
+# then we modify next[i][j] = next[i][k]
+def floydWarshall(V):
+    global dist, Next
+    for k in range(V):
+        for i in range(V):
+            for j in range(V):
+
+                # We cannot travel through
+                # edge that doesn't exist
+                if (dis[i][k] == INF or dis[k][j] == INF):
+                    continue
+                if (dis[i][j] > dis[i][k] + dis[k][j]):
+                    dis[i][j] = dis[i][k] + dis[k][j]
+                    Next[i][j] = Next[i][k]
+
+
+# Print the shortest path
+def printPath(path):
+    n = len(path)
+    for i in range(n - 1):
+        print(path[i], end=" -> ")
+    print(path[n - 1])
+
+
+# Driver code
+if __name__ == '__main__':
+    MAXM, INF = 27**2, 10**7
+    dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+    Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+
+#read excel data
+    import pandas as pd
+
+    df4 = pd.read_excel('spf_results_3sd_mbr.xlsx', sheet_name='3sd_mbr_matrix',index_col=0)
+    graph1 = df4.values.tolist() #taking the data and convert it to list of list
+    V = len(df4.index)
+
+    # Function to initialise the
+    # distance and Next array
+    initialise(V)
+
+    # Calling Floyd Warshall Algorithm,
+    # this will update the shortest
+    # distance as well as Next array
+    floydWarshall(V)
+    path = []
+
+    for i in range(len(graph4)): #loop the command
+        for j in range(len(graph4[0])):
+            print(f"Shortest path from {i} to {j}: ", end = "")
+            path = constructPath(i, j)
+            printPath(path)
+
+
+#######################################################################################################################
+#executing the list of the spf results - 12 D - CAS type
+
+# Initializing the distance and
+# Next array
+def initialise(V):
+    global dis, Next
+
+    for i in range(V):
+        for j in range(V):
+            dis[i][j] = graph5[i][j]
+
+            # No edge between node
+            # i and j
+            if (graph5[i][j] == INF):
+                Next[i][j] = -1
+            else:
+                Next[i][j] = j
+
+
+# Function construct the shortest
+# path between u and v
+def constructPath(u, v):
+    global graph5, Next
+
+    # If there's no path between
+    # node u and v, simply return
+    # an empty array
+    if (Next[u][v] == -1):
+        return {}
+
+    # Storing the path in a vector
+    path = [u]
+    while (u != v):
+        u = Next[u][v]
+        path.append(u)
+
+    return path
+
+
+# Standard Floyd Warshall Algorithm
+# with little modification Now if we find
+# that dis[i][j] > dis[i][k] + dis[k][j]
+# then we modify next[i][j] = next[i][k]
+def floydWarshall(V):
+    global dist, Next
+    for k in range(V):
+        for i in range(V):
+            for j in range(V):
+
+                # We cannot travel through
+                # edge that doesn't exist
+                if (dis[i][k] == INF or dis[k][j] == INF):
+                    continue
+                if (dis[i][j] > dis[i][k] + dis[k][j]):
+                    dis[i][j] = dis[i][k] + dis[k][j]
+                    Next[i][j] = Next[i][k]
+
+
+# Print the shortest path
+def printPath(path):
+    n = len(path)
+    for i in range(n - 1):
+        print(path[i], end=" -> ")
+    print(path[n - 1])
+
+
+# Driver code
+if __name__ == '__main__':
+    MAXM, INF = 27**2, 10**7
+    dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+    Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+
+#read excel data
+    import pandas as pd
+
+    df5 = pd.read_excel('spf_results_12d_cas.xlsx', sheet_name='12d_cas_matrix',index_col=0)
+    graph1 = df5.values.tolist() #taking the data and convert it to list of list
+    V = len(df5.index)
+
+    # Function to initialise the
+    # distance and Next array
+    initialise(V)
+
+    # Calling Floyd Warshall Algorithm,
+    # this will update the shortest
+    # distance as well as Next array
+    floydWarshall(V)
+    path = []
+
+    for i in range(len(graph5)): #loop the command
+        for j in range(len(graph5[0])):
+            print(f"Shortest path from {i} to {j}: ", end = "")
+            path = constructPath(i, j)
+            printPath(path)
+
+
+#######################################################################################################################
+#executing the list of the spf results - 15 D - MBR type
+
+# Initializing the distance and
+# Next array
+def initialise(V):
+    global dis, Next
+
+    for i in range(V):
+        for j in range(V):
+            dis[i][j] = graph6[i][j]
+
+            # No edge between node
+            # i and j
+            if (graph6[i][j] == INF):
+                Next[i][j] = -1
+            else:
+                Next[i][j] = j
+
+
+# Function construct the shortest
+# path between u and v
+def constructPath(u, v):
+    global graph6, Next
+
+    # If there's no path between
+    # node u and v, simply return
+    # an empty array
+    if (Next[u][v] == -1):
+        return {}
+
+    # Storing the path in a vector
+    path = [u]
+    while (u != v):
+        u = Next[u][v]
+        path.append(u)
+
+    return path
+
+
+# Standard Floyd Warshall Algorithm
+# with little modification Now if we find
+# that dis[i][j] > dis[i][k] + dis[k][j]
+# then we modify next[i][j] = next[i][k]
+def floydWarshall(V):
+    global dist, Next
+    for k in range(V):
+        for i in range(V):
+            for j in range(V):
+
+                # We cannot travel through
+                # edge that doesn't exist
+                if (dis[i][k] == INF or dis[k][j] == INF):
+                    continue
+                if (dis[i][j] > dis[i][k] + dis[k][j]):
+                    dis[i][j] = dis[i][k] + dis[k][j]
+                    Next[i][j] = Next[i][k]
+
+
+# Print the shortest path
+def printPath(path):
+    n = len(path)
+    for i in range(n - 1):
+        print(path[i], end=" -> ")
+    print(path[n - 1])
+
+
+# Driver code
+if __name__ == '__main__':
+    MAXM, INF = 27**2, 10**7
+    dis = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+    Next = [[-1 for i in range(MAXM)] for i in range(MAXM)]
+
+#read excel data
+    import pandas as pd
+
+    df6 = pd.read_excel('spf_results_15d_mbr.xlsx', sheet_name='15d_mbr_matrix',index_col=0)
+    graph1 = df6.values.tolist() #taking the data and convert it to list of list
+    V = len(df6.index)
+
+    # Function to initialise the
+    # distance and Next array
+    initialise(V)
+
+    # Calling Floyd Warshall Algorithm,
+    # this will update the shortest
+    # distance as well as Next array
+    floydWarshall(V)
+    path = []
+
+    for i in range(len(graph6)): #loop the command
+        for j in range(len(graph6[0])):
+            print(f"Shortest path from {i} to {j}: ", end = "")
+            path = constructPath(i, j)
+            printPath(path)
 
 
 
